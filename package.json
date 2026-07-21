@@ -1,5 +1,7 @@
 {
   "dependencies": {
-    "http-proxy-middleware": "^3.0.7"
+    "dotenv": "^17.4.2",
+    "http-proxy-middleware": "^3.0.7",
+    "jsonwebtoken": "^9.0.3"
   }
 }

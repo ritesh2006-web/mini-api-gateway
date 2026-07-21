@@ -1,6 +1,7 @@
 import express from 'express';
 import {createProxyMiddleware} from 'http-proxy-middleware'
-
+import {verifyToken} from './middleware/auth.js';
+import {rateLimiter} from './middleware/rateLimiter.js';
 const app = express();
 
 const PORT = 3000;
@@ -10,8 +11,9 @@ app.get('/',(req,res)=>{
 });
 
 //user service
+app.use(rateLimiter); //order matters, rateLimiter should be applied before verifyToken
 
-app.use('/user',
+app.use('/user',verifyToken,
     createProxyMiddleware({
         target: 'http://localhost:4001',
         changeOrigin : true,
@@ -37,3 +39,5 @@ app.use('/products',
 app.listen(PORT, () => {
     console.log(`API Gateway is running on port ${PORT}`);
 });
+
+
