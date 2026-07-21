@@ -2,7 +2,9 @@ import express from 'express';
 import {createProxyMiddleware} from 'http-proxy-middleware'
 import {verifyToken} from './middleware/auth.js';
 import {rateLimiter} from './middleware/rateLimiter.js';
+import morgan from "morgan";
 const app = express();
+app.use(morgan('dev'));
 
 const PORT = 3000;
 
@@ -12,6 +14,15 @@ app.get('/',(req,res)=>{
 
 //user service
 app.use(rateLimiter); //order matters, rateLimiter should be applied before verifyToken
+
+app.get("/health",(req,res)=>{
+    res.status(200).json({
+        status:"UP",
+        service:"API Gateway",
+        uptime: process.uptime(),
+        timestamp: new Date().toISOString()
+    })
+})
 
 app.use('/user',verifyToken,
     createProxyMiddleware({
