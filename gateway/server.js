@@ -26,7 +26,7 @@ app.get("/health",(req,res)=>{
 
 app.use('/user',verifyToken,
     createProxyMiddleware({
-        target: 'http://localhost:4001',
+        target: "http://user-service:4001",
         changeOrigin : true,
         pathRewrite: {
             '^/user' : '',
@@ -38,7 +38,7 @@ app.use('/user',verifyToken,
 
 app.use('/products',
     createProxyMiddleware({
-        target: 'http://localhost:4002',
+        target: "http://product-service:4002",
         changeOrigin : true,
         pathRewrite: {
             '^/products' : '',
