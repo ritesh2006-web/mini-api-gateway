@@ -3,6 +3,8 @@ import {createProxyMiddleware} from 'http-proxy-middleware'
 import {verifyToken} from './middleware/auth.js';
 import {rateLimiter} from './middleware/rateLimiter.js';
 import morgan from "morgan";
+import dotenv from 'dotenv';
+dotenv.config();
 const app = express();
 app.use(morgan('dev'));
 
@@ -26,7 +28,7 @@ app.get("/health",(req,res)=>{
 
 app.use('/user',verifyToken,
     createProxyMiddleware({
-        target: "http://user-service:4001",
+        target: process.env.USER_SERVICE_URL,
         changeOrigin : true,
         pathRewrite: {
             '^/user' : '',
@@ -38,7 +40,7 @@ app.use('/user',verifyToken,
 
 app.use('/products',
     createProxyMiddleware({
-        target: "http://product-service:4002",
+        target: process.env.PRODUCT_SERVICE_URL,
         changeOrigin : true,
         pathRewrite: {
             '^/products' : '',
