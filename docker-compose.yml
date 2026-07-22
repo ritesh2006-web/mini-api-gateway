@@ -1,16 +1,13 @@
-version: "3.8"
-
 services:
 
-gateway:
-  build: ./gateway
-  ports:
-    - "3000:3000"
-  env_file:
-    - ./gateway/.env
-  depends_on:
-    - user-service
-    - product-service
+  gateway:
+    build: ./gateway
+    ports:
+      - "3001:3000"
+    depends_on:
+      - user-service
+      - product-service
+      - redis
 
   user-service:
     build: ./user-service
@@ -21,3 +18,9 @@ gateway:
     build: ./product-service
     ports:
       - "4002:4002"
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+      - "6379:6379"

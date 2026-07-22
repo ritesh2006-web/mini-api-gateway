@@ -4,7 +4,13 @@ import {verifyToken} from './middleware/auth.js';
 import {rateLimiter} from './middleware/rateLimiter.js';
 import morgan from "morgan";
 import dotenv from 'dotenv';
+import redisClient from './config/redis.js';
+
+await redisClient.connect();
+console.log("✅ Connected to Redis");
+
 dotenv.config();
+
 const app = express();
 app.use(morgan('dev'));
 
