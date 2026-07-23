@@ -37,6 +37,6 @@ jobs:
         working-directory: product-service
         run: npm install
 
-      - name: Check Gateway
+      - name: Check Gateway Syntax
         working-directory: gateway
-        run: npm run start -- --help || true
+        run: node --check server.js
