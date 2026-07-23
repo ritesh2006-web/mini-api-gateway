@@ -5,6 +5,7 @@ import {rateLimiter} from './middleware/rateLimiter.js';
 import morgan from "morgan";
 import dotenv from 'dotenv';
 import redisClient from './config/redis.js';
+import {getProfile} from './controllers/userController.js';
 
 await redisClient.connect();
 console.log("✅ Connected to Redis");
@@ -32,14 +33,10 @@ app.get("/health",(req,res)=>{
     })
 })
 
-app.use('/user',verifyToken,
-    createProxyMiddleware({
-        target: process.env.USER_SERVICE_URL,
-        changeOrigin : true,
-        pathRewrite: {
-            '^/user' : '',
-        }
-    })
+app.get(
+    "/user/profile",
+    verifyToken,
+    getProfile
 );
 
 //product service

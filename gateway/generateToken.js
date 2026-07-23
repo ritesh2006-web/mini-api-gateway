@@ -11,7 +11,7 @@ const token = jwt.sign(
     },
     mysecretkey,
     {
-        expiresIn: "10s"
+        expiresIn: "10000s"
     }
 );
 
