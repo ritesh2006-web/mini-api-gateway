@@ -1,79 +1,145 @@
-# Mini API Gateway
+# 🚀 Mini API Gateway
 
-A production-inspired API Gateway built using **Node.js** and **Express** to demonstrate core backend architecture concepts such as reverse proxy routing, centralized authentication, rate limiting, fault tolerance, and observability.
+A production-inspired API Gateway built with Node.js, Express, Redis, and Docker that demonstrates authentication, distributed rate limiting, circuit breaker, request logging, and microservice routing.
 
----
+![Node.js](https://img.shields.io/badge/Node.js-22.x-green)
+![Express](https://img.shields.io/badge/Express-5.x-black)
+![Redis](https://img.shields.io/badge/Redis-7-red)
+![Docker](https://img.shields.io/badge/Docker-Enabled-blue)
+![GitHub Actions](https://github.com/ritesh2006-web/mini-api-gateway/actions/workflows/node.yml/badge.svg)
+![License](https://img.shields.io/badge/License-MIT-yellow)
 
-## 🚀 Features
+## 📖 Overview
 
-### ✅ Completed
+Mini API Gateway is a production-inspired backend project demonstrating how modern microservices communicate securely and reliably.
 
-- Reverse Proxy Routing
-- Multiple Microservices
-- API Gateway
+The gateway authenticates incoming requests using JWT, protects services with Redis-backed distributed rate limiting, forwards traffic to independent microservices, and prevents cascading failures using a Circuit Breaker pattern.
 
-### 🚧 In Progress
+The project is fully containerized using Docker Compose and includes CI using GitHub Actions.
 
-- JWT Authentication
-- Redis Rate Limiting
-- Circuit Breaker
-- Logging
-- Health Endpoint
-- Metrics Endpoint
-- Docker Compose
-- GitHub Actions CI
-- Load Testing
+## ✨ Features
 
----
+- 🔐 JWT Authentication
+- 🚦 Redis-backed Distributed Rate Limiting
+- 🔄 Circuit Breaker (Opossum)
+- 🌐 API Gateway using Express
+- 🔀 Reverse Proxy for Microservices
+- 📋 Morgan Request Logging
+- ❤️ Health Check Endpoint
+- 🐳 Docker & Docker Compose
+- ⚙️ Environment Variable Configuration
+- 🚀 GitHub Actions CI
+
+## 🛠️ Tech Stack
+
+| Category | Technology |
+|-----------|------------|
+| Runtime | Node.js |
+| Framework | Express.js |
+| Authentication | JWT |
+| Rate Limiting | express-rate-limit + Redis |
+| Circuit Breaker | Opossum |
+| Logging | Morgan |
+| HTTP Client | Axios |
+| Cache | Redis |
+| Containerization | Docker & Docker Compose |
+| CI/CD | GitHub Actions |
+
+## 📂 Folder Structure
+
+```text
+mini-api-gateway
+│
+├── gateway/
+│   ├── config/
+│   ├── middleware/
+│   ├── circuitBreaker/
+│   ├── controllers/
+│   ├── server.js
+│   └── package.json
+│
+├── user-service/
+│
+├── product-service/
+│
+├── .github/
+│   └── workflows/
+│
+├── docker-compose.yml
+└── README.md
+```
 
 ## 🏗️ Architecture
 
-```
-                Client
-                   |
-                   |
-            API Gateway
-           (Port 3000)
-             /      \
-            /        \
- User Service     Product Service
-   (4001)             (4002)
-```
+> Architecture diagram coming below.
 
----
 
-## Tech Stack
+## ⚙️ Installation
 
-- Node.js
-- Express
-- http-proxy-middleware
+Clone the repository:
 
----
-
-## Folder Structure
-
-```
-mini-api-gateway
-│
-├── gateway
-├── user-service
-├── product-service
+```bash
+git clone https://github.com/ritesh2006-web/mini-api-gateway.git
+cd mini-api-gateway
 ```
 
----
+Install dependencies:
 
-## Progress
+```bash
+cd gateway && npm install
+cd ../user-service && npm install
+cd ../product-service && npm install
+```
 
-- ✅ Phase 0 — Setup
-- ✅ Phase 1 — Reverse Proxy
-- ⏳ Phase 2 — JWT Authentication
-- ⏳ Phase 3 — Rate Limiting
-- ⏳ Phase 4 — Circuit Breaker
-- ⏳ Phase 5 — Observability
-- ⏳ Phase 6 — Docker & CI
+## 🐳 Run with Docker
 
----
+```bash
+docker compose up --build
+```
 
-## Author
+The following services will start:
 
-Ritesh Puri
+- API Gateway → localhost:3001
+- User Service → localhost:4001
+- Product Service → localhost:4002
+- Redis → localhost:6379
+
+
+## 🔑 Environment Variables
+
+Create a `.env` file inside the gateway folder.
+
+```env
+PORT=3000
+
+JWT_SECRET=your_secret
+
+USER_SERVICE_URL=http://user-service:4001
+
+PRODUCT_SERVICE_URL=http://product-service:4002
+
+REDIS_URL=redis://redis:6379
+```
+
+## 📡 API Endpoints
+
+| Method | Endpoint | Description |
+|---------|----------|-------------|
+| GET | /health | Health Check |
+| GET | /user/profile | User Service |
+| GET | /product/products | Product Service |
+
+## 🔮 Future Improvements
+
+- API Key Authentication
+- Response Caching
+- Service Discovery
+- Kubernetes Deployment
+- Prometheus Monitoring
+- Grafana Dashboard
+
+## 👨‍💻 Author
+
+**Ritesh Puri**
+
+GitHub: https://github.com/ritesh2006-web
