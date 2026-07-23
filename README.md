@@ -71,7 +71,7 @@ mini-api-gateway
 
 ## 🏗️ Architecture
 
-> Architecture diagram coming below.
+![Mini API Gateway Architecture](assets/archi-diag.png)
 
 
 ## ⚙️ Installation
@@ -99,7 +99,7 @@ docker compose up --build
 
 The following services will start:
 
-- API Gateway → localhost:3001
+- API Gateway → localhost:3000
 - User Service → localhost:4001
 - Product Service → localhost:4002
 - Redis → localhost:6379
